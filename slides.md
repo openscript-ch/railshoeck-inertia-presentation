@@ -3,6 +3,7 @@ theme: "@openscript-ch/slidev-theme"
 title: Railshöck - Rails & Inertia
 colorSchema: light
 transition: none
+layout: cover
 ---
 
 # Railshöck - Rails & Inertia
@@ -359,6 +360,8 @@ layout: two-cols-header
 
 ::left::
 
+__ApprenticeCreate.tsx__
+
 ```ts{all|2|all}
 router.reload({
   only: ["groups"],
@@ -370,6 +373,8 @@ router.reload({
 ```
 
 ::right::
+
+__apprentices_controller.rb__
 
 ```rb{all|3|all}{at: +1}
 render inertia: "users/apprentice/ApprenticeCreate", props: {
@@ -409,6 +414,8 @@ layout: two-cols-header
 
 ::left::
 
+__reports_controller.rb__
+
 ```rb{all|4|all}
 render inertia: "report/Reports", props: {
   ...
@@ -420,6 +427,8 @@ render inertia: "report/Reports", props: {
 ```
 
 ::right::
+
+__Reports.tsx__
 
 ```ts{all|2|all}{at: +1}
 const openReportGenerator = () => {
@@ -455,6 +464,7 @@ users: InertiaRails.optional { User.all },
 # IMMER evaluiert
 users: InertiaRails.always { User.all },
 ```
+---
 layout: two-cols-header
 ---
 
@@ -605,11 +615,11 @@ layout: two-cols-header
 __items_controller.rb__
 
 ```rb{all|2-4,6}
-def index2
+def index
   Item.offset(params["offset"] || 0)
       .limit(20)
       .order(:id)
-  render inertia: "Items/ItemsIndex2", props: {
+  render inertia: "Items/ItemsIndex", props: {
     items: InertiaRails.merge { @items.as_json() },
   }
 end
@@ -678,13 +688,14 @@ __Weitere Optionen__
 <Link prefetch={["mount", "hover"]} />
 // Cache ist stale zwischen 5s - 60s
 <Link prefetch cacheFor={["5s", "1m"]}>
+```
 
 ---
 
 <div class="flex justify-center">
   <SlidevVideo controls class="w-[80%] h-auto">
     <source src="./assets/Prefetching.mp4" type="video/mp4" />
-    
+
      <p>
       Your browser does not support videos. You may download it
       <a href="./assets/Prefetching.mp4">here</a>.
@@ -692,4 +703,54 @@ __Weitere Optionen__
   </SlidevVideo>
 </div>
 
+---
+
+## Forms
+
+```tsx
+
+import { useForm } from '@inertiajs/react'
+
+const { data, setData, post, processing, errors } = useForm({
+  email: '',
+  password: '',
+})
+
+return (
+  <form onSubmit={() => {e.preventDefault(); post('/login')}}>
+    <input type="text" value={data.email}
+      onChange={(e) => setData('email', e.target.value)}
+    />
+    {errors.email && <div>{errors.email}</div>}
+    <input type="password" value={data.password}
+      onChange={(e) => setData('password', e.target.value)}
+    />
+    {errors.password && <div>{errors.password}</div>}
+    <button type="submit" disabled={processing}>
+      Login
+    </button>
+  </form>
+)
+
+```
+<!-- Optional kann man das auch auslassen da wir keine Erfahrung mit diesen Forms gemacht haben -->
+
+---
+layout: two-cols
+---
+
+## Pros
+1. Kein Frontend Routing
+1. Keine API
+1. Viele Möglichkeiten zum optimieren
+    1. Partial Loading
+    1. Props Merging
+    1. Prefetching
+
+::right::
+
+## Cons
+1. Kein Frontend Routing
+1. Evtl. viele Props pro Endpoint/Page
+1. Daten für Modals können etwas schwierig sein
 ---
