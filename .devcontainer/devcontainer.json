@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/ruby-rails-postgres
+{
+	"name": "Inertia-Presentation",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "app",
+	"workspaceFolder": "/workspace",
+	"workspaceMount": "source=workspace-volume,target=/workspace,type=volume",
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// This can be used to network with other containers or the host.
+	"postCreateCommand": "sudo chown -R node /workspace",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"antfu.slidev"
+			]
+		}
+	}
+}

@@ -1,0 +1,17 @@
+{
+  "name": "inertia-rails",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "slidev build",
+    "dev": "slidev --remote 0.0.0.0",
+    "export": "slidev export"
+  },
+  "dependencies": {
+    "@openscript-ch/slidev-theme": "^0.10.4",
+    "@slidev/cli": "^52.1.0",
+    "@slidev/theme-default": "latest",
+    "@slidev/theme-seriph": "latest",
+    "vue": "^3.5.18"
+  }
+}

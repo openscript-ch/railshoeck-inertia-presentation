@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: .devcontainer/Dockerfile
+    volumes:
+      - workspace-volume:/workspace:cached
+    command: sleep infinity
+
+volumes:
+  workspace-volume:
