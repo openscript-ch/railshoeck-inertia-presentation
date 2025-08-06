@@ -455,65 +455,6 @@ users: InertiaRails.optional { User.all },
 # IMMER evaluiert
 users: InertiaRails.always { User.all },
 ```
----
-layout: two-cols-header
----
-
-## Deferred Props
-
-::left::
-
-__items_controller.rb__
-```rb{all|2|all}
-render inertia: "Items/Items", props: {
-      items: InertiaRails.defer { @items },
-      params: @params
-}
-```
-
-::right::
-
-__Items.tsx__
-```tsx{all|1,5-9|all}{at: +1}
-import { Deferred } from "@inertiajs/react";
-
-export default function Items({ items, params }: ItemsProps) {
-  return (
-    <Deferred data="items" 
-      fallback={<ItemsTable loading />}>
-      <ItemsTable items={items}
-       onDelete={deleteItem}/>
-    </Deferred>
-  )
-}
-```
----
-
-<div class="flex justify-center">
-  <SlidevVideo controls class="w-[80%] h-auto">
-    <source src="./assets/DeferredPropsDemo.mp4" type="video/mp4" />
-
-     <p>
-      Your browser does not support videos. You may download it
-      <a href="./assets/DeferredPropsDemo.mp4">here</a>.
-    </p>
-  </SlidevVideo>
-</div>
----
----
-
-## Deferred Props
-
-__Gruppierung für mehrere parallele Requests__
-
-```rb{all|2-4|all}
-render inertia: "Items/Items", props: {
-      items: InertiaRails.defer { @items },
-      params: InertiaRails.defer('attributes') { @params },
-      filters: InertiaRails.defer('attributes') { @filters },
-}
-```
----
 layout: two-cols-header
 ---
 
@@ -594,4 +535,126 @@ def create
     redirect_to new_admin_path, inertia: { errors: admin.errors }
   end
 end
+```
+---
+layout: two-cols-header
+---
+
+## Deferred Props
+
+::left::
+
+__items_controller.rb__
+```rb{all|2|all}
+render inertia: "Items/Items", props: {
+      items: InertiaRails.defer { @items },
+      params: @params
+}
+```
+
+::right::
+
+__Items.tsx__
+```tsx{all|1,5-9|all}{at: +1}
+import { Deferred } from "@inertiajs/react";
+
+export default function Items({ items, params }: ItemsProps) {
+  return (
+    <Deferred data="items" 
+      fallback={<ItemsTable loading />}>
+      <ItemsTable items={items}
+       onDelete={deleteItem}/>
+    </Deferred>
+  )
+}
+```
+---
+
+<div class="flex justify-center">
+  <SlidevVideo controls class="w-[80%] h-auto">
+    <source src="./assets/DeferredPropsDemo.mp4" type="video/mp4" />
+
+     <p>
+      Your browser does not support videos. You may download it
+      <a href="./assets/DeferredPropsDemo.mp4">here</a>.
+    </p>
+  </SlidevVideo>
+</div>
+---
+---
+
+## Deferred Props
+
+__Gruppierung für mehrere parallele Requests__
+
+```rb{all|2-4|all}
+render inertia: "Items/Items", props: {
+      items: InertiaRails.defer { @items },
+      params: InertiaRails.defer('attributes') { @params },
+      filters: InertiaRails.defer('attributes') { @filters },
+}
+```
+---
+layout: two-cols-header
+---
+
+## Merging Props
+
+::left::
+
+__items_controller.rb__
+
+```rb{all|2-4,6}
+def index2
+  Item.offset(params["offset"] || 0)
+      .limit(20)
+      .order(:id)
+  render inertia: "Items/ItemsIndex2", props: {
+    items: InertiaRails.merge { @items.as_json() },
+  }
+end
+```
+
+::right::
+
+__Items.tsx__
+
+```tsx{all|3-5|all}{at: +1}
+const loadMoreRecords = () => {
+  setLoading(true);
+  router.reload({
+    only: ["items"],
+    data: { offset: items.length },
+    onFinish: () => setLoading(false)
+  });
+}
+```
+---
+
+<div class="flex justify-center">
+  <SlidevVideo controls class="w-[80%] h-auto">
+    <source src="./assets/MergePropsDemo.mp4" type="video/mp4" />
+
+     <p>
+      Your browser does not support videos. You may download it
+      <a href="./assets/MergePropsDemo.mp4">here</a>.
+    </p>
+  </SlidevVideo>
+</div>
+
+---
+
+## Merging Props
+
+__Merge zurücksetzten__
+
+```tsx{all|4-5|all}
+const onReset = () => {
+  setLoading(true)
+  router.reload({
+    reset: ["items"],
+    data: { offset: 0 },
+    onFinish: () => setLoading(false)
+  });
+}
 ```

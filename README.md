@@ -1,11 +1,7 @@
-# Welcome to [Slidev](https://github.com/slidevjs/slidev)!
+# Presentation for the Railshöck September 25 @openscript
 
-To start the slide show:
+### Setup
 
-- `pnpm install`
-- `pnpm dev`
-- visit <http://localhost:3030>
-
-Edit the [slides.md](./slides.md) to see the changes.
-
-Learn more about Slidev at the [documentation](https://sli.dev/).
+1. Open in devcontainer
+1. Install dependencies `pnpm install`
+1. Start with `pnpm run dev`
