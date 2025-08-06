@@ -634,8 +634,7 @@ const loadMoreRecords = () => {
 <div class="flex justify-center">
   <SlidevVideo controls class="w-[80%] h-auto">
     <source src="./assets/MergePropsDemo.mp4" type="video/mp4" />
-
-     <p>
+    <p>
       Your browser does not support videos. You may download it
       <a href="./assets/MergePropsDemo.mp4">here</a>.
     </p>
@@ -658,3 +657,39 @@ const onReset = () => {
   });
 }
 ```
+---
+
+## Prefetching
+
+__Navbar.tsx__
+
+```tsx
+<>
+  <NavLink component={Link} href="/items/new" label="New Item" prefetch />
+  <NavLink component={Link} href="/items" label="Items" prefetch cacheFor="5s" />
+</>
+```
+
+__Weitere Optionen__
+
+```tsx
+<Link prefetch="click" />
+<Link prefetch="mount" />
+<Link prefetch={["mount", "hover"]} />
+// Cache ist stale zwischen 5s - 60s
+<Link prefetch cacheFor={["5s", "1m"]}>
+
+---
+
+<div class="flex justify-center">
+  <SlidevVideo controls class="w-[80%] h-auto">
+    <source src="./assets/Prefetching.mp4" type="video/mp4" />
+    
+     <p>
+      Your browser does not support videos. You may download it
+      <a href="./assets/Prefetching.mp4">here</a>.
+    </p>
+  </SlidevVideo>
+</div>
+
+---
