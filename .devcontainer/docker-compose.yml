@@ -6,7 +6,7 @@ services:
       context: ..
       dockerfile: .devcontainer/Dockerfile
     volumes:
-      - workspace-volume:/workspace:cached
+      - ..:/workspace/railshoeck-inertia-presentation:cached
     command: sleep infinity
 
 volumes:

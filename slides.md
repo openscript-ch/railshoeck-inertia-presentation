@@ -181,6 +181,9 @@ const Home = ({ username }: { username: string }) => {
 };
 ```
 
+Path helpers mit JS-Routes<br>
+<small>Dazu gleich mehr</small>
+
 ::right::
 
 <v-clicks>
