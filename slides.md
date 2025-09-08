@@ -171,36 +171,116 @@ layout: two-cols-header
 ![Rails + API + UI Framework](./assets/rails-api.svg)
 
 ---
-layout: cover
+layout: two-cols-header
 ---
 
 # Rails + Inertia.js
+<!-- <logos-rails class="relative -top-12 bg-white" /> -->
 
----
+::left::
 
-## Was ist Inertia?
+- Modern UI with a framework like React, Vue, Svelte, etc. 🎨
+- No Reusable API 📱
+- Server-side routing 🗺️
+- Well integrated in established frameworks 🧩
 
-- SPA
-- Serversteitiges Routing
-- Keine API
-- Client-Side Adapter für React, Vue und Svelte
-- Server-Side Adapter für Rails, Laravel und Phoenix
+::right::
 
-<!-- Das Ziel von Inertia ist es einfach Single Page Applikation zu erstellen ohne die Einfachheit von MVC zu verlassen. Es gibt Serverseitiges Routing. Man muss keine API aufbauen und Instandhalten.
-Dazu gibt es drei Offizielle Client-Side Adapter, für React, Vue und Svelte sowie drei Server-Side Adapter für Rails, Laravel und Phoenix. -->
----
-
-## Wie kamen wir zu Inertia?
-
-__Die Optionen__
-- Plain old Rails
-- Rails, Vite und React
-- Rails, Vite SSR und React
-- Rails, Vite, Inertia und React
-- Rails und Hotwire
+<img alt="Inertia.js" src="../assets/inertia-logo.png" class="mx-auto mt-10" /> 
 
 <!-- Wir hatten einige Diskussionen wie wir unser Projekt umsetzten wollten. Wir verwenden gerne neue und uns noch unbekannte Technologien. Jedoch für dieses Projekt wollten wir uns schon ein bekannteren Tech-Stack annehmen.
 Somit ergaben sich für uns einige Optionen wobei Inertia eigentlich noch nicht zur Auswahl Stand. Über ein Laravel + Vue Projekt, welches wir übernahmen, sind wir auf Inertia gestossen. -->
+
+---
+layout: cover 
+--- 
+
+# So what is this «Inertia.js»?
+
+---
+
+<img alt="The modern monolith" src="../assets/inertia-claims-1.png" class="absolute top-6 w-full left-0 block" /> 
+<img v-click="1" alt="build spas without api" src="../assets/inertia-claims-2.png" class="absolute top-6 w-full left-0 block" /> 
+<img v-click="2" alt="laravel example" src="../assets/inertia-claims-3.png" class="absolute top-6 w-full left-0 block" /> 
+<span v-click="3" class="text-[10rem] absolute top-20 right-30" >🥲</span>
+
+
+<!-- 
+Inertia claims: 
+
+1. be the «modern monolith» (it's not)
+2. to «build SPAs without building an API»
+
+It does this by «glueing» two frameworks together and replaces the view layer
+
+3. e.g. Laravel
+
+-->
+
+---
+
+# What is Inertia?
+
+<v-clicks>
+
+- *Server-side*: use prefered server-side frameworks with their its, controllers, auth, ...
+  - **but without the view layer**
+- *Client-side*: use prefered client-side frameworks with its component library, ...
+  - **but without talking to a http-api**
+- Glues these two sides together to build the «modern monolith» 
+- Created 2019 by Jonathan Reinink for Laravel
+
+</v-clicks>
+
+---
+
+# What is Inertia?
+
+- Many integrations available: [Community adapters](https://inertiajs.com/community-adapters)
+
+<div class="flex justify-center text-5xl mt-5">
+  <logos-rails v-click class="m-4 " />
+  <logos-laravel v-click class="m-4 " />
+  <logos-nestjs v-click class="m-4 " />
+  <logos-phoenix v-click class="m-4 " />
+  <logos-django v-click class="m-4 " />
+  <logos-spring v-click class="m-4 " />
+</div>
+<div v-click class="text-5xl text-center">+</div>
+<div class="flex justify-center text-5xl">
+  <logos-vue v-click class="m-4 " />
+  <logos-react v-click class="m-4 " />
+  <logos-svelte v-click class="m-4 " />
+</div>
+
+---
+
+# How does Inertia work?
+
+In a nutshell:
+
+<v-clicks>
+
+- Inertia «acts» as a client-side routing library
+- Installs lightweight wrapper around anchor tags
+- Intercepts clicks and makes visit via XHR
+- Injects resulting props back into page components
+- Initial view contains components and data
+
+</v-clicks>
+
+<v-click>
+
+[Protocol Details](https://inertiajs.com/the-protocol)
+
+</v-click>
+
+---
+layout: cover 
+--- 
+
+# [Rails + Intertia in action](http://localhost:3000)
+
 ---
 layout: two-cols-header
 ---
