@@ -186,7 +186,7 @@ layout: two-cols-header
 
 ::right::
 
-<img alt="Inertia.js" src="../assets/inertia-logo.png" class="mx-auto mt-10" /> 
+<img alt="Inertia.js" src="./assets/inertia-logo.png" class="mx-auto mt-10" /> 
 
 <!-- Wir hatten einige Diskussionen wie wir unser Projekt umsetzten wollten. Wir verwenden gerne neue und uns noch unbekannte Technologien. Jedoch für dieses Projekt wollten wir uns schon ein bekannteren Tech-Stack annehmen.
 Somit ergaben sich für uns einige Optionen wobei Inertia eigentlich noch nicht zur Auswahl Stand. Über ein Laravel + Vue Projekt, welches wir übernahmen, sind wir auf Inertia gestossen. -->
@@ -199,9 +199,9 @@ layout: cover
 
 ---
 
-<img alt="The modern monolith" src="../assets/inertia-claims-1.png" class="absolute top-6 w-full left-0 block" /> 
-<img v-click="1" alt="build spas without api" src="../assets/inertia-claims-2.png" class="absolute top-6 w-full left-0 block" /> 
-<img v-click="2" alt="laravel example" src="../assets/inertia-claims-3.png" class="absolute top-6 w-full left-0 block" /> 
+<img alt="The modern monolith" src="./assets/inertia-claims-1.png" class="absolute top-6 w-full left-0 block" /> 
+<img v-click="1" alt="build spas without api" src="./assets/inertia-claims-2.png" class="absolute top-6 w-full left-0 block" /> 
+<img v-click="2" alt="laravel example" src="./assets/inertia-claims-3.png" class="absolute top-6 w-full left-0 block" /> 
 <span v-click="3" class="text-[10rem] absolute top-20 right-30" >🥲</span>
 
 
@@ -231,6 +231,8 @@ It does this by «glueing» two frameworks together and replaces the view layer
 - Created 2019 by Jonathan Reinink for Laravel
 
 </v-clicks>
+
+<img src="./assets/ppap.jpg" v-click="3" class="absolute h-50 bottom-6 right-10 -rotate-2">
 
 ---
 
@@ -285,7 +287,7 @@ layout: cover
 layout: two-cols-header
 ---
 
-## Inertia.ts Setup
+## Inertia setup
 
 ::left::
 
@@ -315,7 +317,7 @@ createInertiaApp({
 
 ::right::
 
-<span :class="$slidev.nav.clicks === 2 ? 'highlight' : ''">**Home**</span>**.tsx**
+<span :class="$slidev.nav.clicks === 2 ? 'text-red-600' : ''">**Home**</span>**.tsx**
 
 ```tsx {all|1,10-12|none|8-15|all}{at: +1}
 import { Head, Link } from "@inertiajs/react";
@@ -365,7 +367,7 @@ __schools_controller.rb__
 
 ::right::
 
-<span :class="$slidev.nav.clicks === 1 ? 'highlight' : ''">**school/Schools**</span>**.tsx**
+<span :class="$slidev.nav.clicks === 1 ? 'text-red-600' : ''">**school/Schools**</span>**.tsx**
 
 ```tsx {all|10|1-10|all}{at: +1}
 type SchoolsProps = {
@@ -383,7 +385,7 @@ export default function Schools({ schools, filter, pagination }: SchoolsProps) {
 ```
 ---
 
-## Shorthand-Routing
+## Shorthand routing
 
 __routes.rb__
 
@@ -411,7 +413,7 @@ layout: two-cols-header
 
 ::left::
 
-__Als Anchor__
+__As anchor__
 
 ```tsx {all|1,8|all}
 import { Head, Link } from "@inertiajs/react";
@@ -429,15 +431,14 @@ const Home = ({ username }: { username: string }) => {
 };
 ```
 
-Path helpers mit JS-Routes<br>
-<small>Dazu gleich mehr</small>
+<Link class="text-sm" href="jsroutes">See also: path helpers with js-routes</Link>
 
 ::right::
 
 <v-clicks>
 <div>
 
-**Als ein beliebiger Tag**
+**As any tag**
 ```tsx {all|8|all}{at: +4}
 import { Head, Link } from "@inertiajs/react";
 import type { ReactNode } from "react";
@@ -459,7 +460,8 @@ const Home = ({ username }: { username: string }) => {
 
 ---
 
-### Weitere optionen für Links
+### Other options for links
+
 * method (`GET|POST|PUT|PATCH|DELETE`)
 * data (POST, PUT data)
 * headers
@@ -467,16 +469,17 @@ const Home = ({ username }: { username: string }) => {
 * preserveState (nicht komplett neu rendern)
 * preserveScroll
 * only (Partial Reloading)
+
 ---
 
-## Manuelles Routing
+## Manual routing
 
 ```ts
 import { router } from '@inertiajs/react';
 
 router.visit(url, options);
 ```
-oder spezifischer
+or more specific
 ```ts
 router.get(url, data, options);
 router.post(url, data, options);
@@ -486,7 +489,7 @@ router.delete(url, options);
 router.reload(options);
 ```
 
-__Beispiel__
+__Example__
 ```ts
 router.post("/login", {
   email: "max.muster@example.org",
@@ -495,7 +498,7 @@ router.post("/login", {
 ```
 ---
 
-## Event Callbacks
+## Event callbacks
 
 ```ts
 router.visit(url, {
@@ -509,7 +512,7 @@ router.visit(url, {
 });
 ```
 
-__Beispiel__
+__Example__
 
 ```ts
 router.post("/login",
@@ -524,15 +527,15 @@ router.post("/login",
 ```
 ---
 
-## Weitere Spielereien
+## More fun stuff
 
-__Browser History__
+__Browser history__
 ```ts
 router.push(options);
 router.replace(options)
 ```
 
-__Request Abbrechen__
+__Abort request__ 
 
 ```ts
 router.post('/users', data, {
@@ -543,7 +546,7 @@ this.cancelToken.cancel();
 ```
 ---
 
-## Restliche Optionen für den Router
+## Other options for the router
 
 ```ts
 router.visit(url, {
@@ -569,8 +572,10 @@ router.visit(url, {
 });
 ```
 ---
+routeAlias: jsroutes
+---
 
-## JS-Routes
+## JS routes
 
 ```bash
 rake js:routes
@@ -588,7 +593,7 @@ export default function AdminCreate() {
 ```
 ---
 
-## Generierte Routes
+## Generated routes
 
 __routes.d.ts__
 ```ts
@@ -607,7 +612,7 @@ export const admins_path: ((
 layout: two-cols-header
 ---
 
-## Client-Side Partial Loading
+## Client-side partial loading
 
 ::left::
 
@@ -636,22 +641,22 @@ render inertia: "users/apprentice/ApprenticeCreate", props: {
 ```
 ---
 
-### Client-Side Partial Loading
+### Client-side partial loading
 
-__Exkludieren__
+__Exclude__
 ```ts
 router.reload({
   except: ["groups"]
 });
 ```
 
-__Als Link__
+__As link__
 
 ```tsx
 <Link href="/groups" only={['groups']}>Gruppen Anzeigen</Link>
 ```
 
-__Oder nur bestimmte Properties__
+__specific properties__
 ```ts
 router.reload({
   only: ["user.firstname", "user.lastname"],
@@ -661,7 +666,7 @@ router.reload({
 layout: two-cols-header
 ---
 
-## Server-Side Partial Loading
+## Server-side partial loading
 
 ::left::
 
@@ -690,36 +695,36 @@ const openReportGenerator = () => {
 ```
 ---
 
-## Server-Side Partial Loading
+## Server-side partial loading
 
-__Alle Optionen__
+__All options__
 
 ```rb
-# IMMER bei standard besuchen dabei
-# OPTIONAL bei partiellen reloads
-# IMMER evaluiert
+# ALWAYS on standard visits
+# OPTIONAL on partial reloads
+# ALWAYS evaluated
 users: User.all,
 
-# IMMER bei standard besuchen dabei
-# OPTIONAL bei partiellen reloads
-# NUR evaluiert wenn benötig
+# IMMER on standard visits
+# OPTIONAL on partial reloads
+# CONDITIONALLY evaluated
 users: -> { User.all },
 
-# NIE bei standard besuchen dabei
-# OPTIONAL bei partiellen reloads
-# NUR evaluiert wenn benötig
+# NEVER on standard visits
+# OPTIONAL on partial reloads
+# CONDITIONALLY evaluated
 users: InertiaRails.optional { User.all },
 
-# IMMER bei standard esuchen dabei
-# IMMER bei partiellen reloads
-# IMMER evaluiert
+# ALWAYS on standard visits
+# ALWAYS on partial reloads
+# ALWAYS evaluated
 users: InertiaRails.always { User.all },
 ```
 ---
 layout: two-cols-header
 ---
 
-## Props & Validation Errors
+## Props & validation errors
 
 ::left::
 
@@ -846,7 +851,7 @@ export default function Items({ items, params }: ItemsProps) {
 
 ## Deferred Props
 
-__Gruppierung für mehrere parallele Requests__
+__Grouping for parallel requests__
 
 ```rb{all|2-4|all}
 render inertia: "Items/Items", props: {
@@ -859,7 +864,7 @@ render inertia: "Items/Items", props: {
 layout: two-cols-header
 ---
 
-## Merging Props
+## Merging props
 
 ::left::
 
@@ -904,9 +909,9 @@ const loadMoreRecords = () => {
 
 ---
 
-## Merging Props
+## Merging props
 
-__Merge zurücksetzten__
+__Reset merge__
 
 ```tsx{all|4-5|all}
 const onReset = () => {
@@ -931,13 +936,13 @@ __Navbar.tsx__
 </>
 ```
 
-__Weitere Optionen__
+__More options__
 
 ```tsx
 <Link prefetch="click" />
 <Link prefetch="mount" />
 <Link prefetch={["mount", "hover"]} />
-// Cache ist stale zwischen 5s - 60s
+// Cache is stale between 5s - 60s
 <Link prefetch cacheFor={["5s", "1m"]}>
 ```
 
@@ -987,21 +992,39 @@ return (
 <!-- Optional kann man das auch auslassen da wir keine Erfahrung mit diesen Forms gemacht haben -->
 
 ---
-layout: two-cols
+layout: two-cols-header
 ---
 
-## Pros
-1. Kein Frontend Routing
-1. Keine API
-1. Viele Möglichkeiten zum optimieren
-    1. Partial Loading
-    1. Props Merging
-    1. Prefetching
+# Conclusion
+
+::left::
+
+## Liked ❤️
+
+<v-clicks>
+
+- Seamless integration in Rails and React
+- Simplicity and ease of use
+- Wide adoption and support for many usecases
+
+</v-clicks>
+
 
 ::right::
 
-## Cons
-1. Kein Frontend Routing
-1. Evtl. viele Props pro Endpoint/Page
-1. Daten für Modals können etwas schwierig sein
+## Nitpicks 💩
+
+<v-clicks>
+
+- Some interactions are hard (e.g. modal dialogs)
+
+</v-clicks>
+
+
 ---
+layout: cover
+---
+
+Conclusion: 
+
+## perfect 5/7, will use again!
