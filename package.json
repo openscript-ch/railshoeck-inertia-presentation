@@ -10,8 +10,13 @@
   "dependencies": {
     "@openscript-ch/slidev-theme": "^0.10.4",
     "@slidev/cli": "^52.1.0",
-    "@slidev/theme-default": "latest",
-    "@slidev/theme-seriph": "latest",
     "vue": "^3.5.18"
+  },
+  "packageManager": "pnpm@10.5.1",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "@parcel/watcher",
+      "esbuild"
+    ]
   }
 }
