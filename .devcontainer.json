@@ -1,0 +1,4 @@
+{
+  "name": "railshoeck-inertia-presentation",
+  "image": "mcr.microsoft.com/devcontainers/typescript-node:3-22-bookworm"
+}
