@@ -6,8 +6,176 @@ transition: none
 layout: cover
 ---
 
-# Railshöck - Rails & Inertia
-Presented by openscript GmbH
+# Railshöck at openscript GmbH
+10th of September 2025
+
+---
+
+# Agenda
+
+1. **Intro** <br> by Robin Bühler
+1. **Rails + Inertia.js** <br> by Diego Steiner
+1. **5' Intermezzo "Netzwerk SDS"** <br> by Christian Sedlmair
+1. **Rails + Svelte on Rails** <br> by Christian Sedlmair
+
+---
+
+# Front-end complexity
+
+From a classic rails app to a modern PWA with a GraphQL API.
+
+![Spectrum](./assets/spectrum.svg)
+
+
+---
+layout: two-cols-header
+---
+
+# Rails + ERB
+
+::left::
+
+- Established, well known and stable 🏛
+- Server-side validation 🦺
+- Many helpers (form helpers, etc.) 💪
+- No additional dependencies, build steps, or complex deployment 🏃‍➡️
+- No API required 🛠️
+- Good UX can be hard to achieve 🥲
+- Tedious to implement interactive elements 😶‍🌫️
+
+::right::
+
+- Difficult access to modern JS components 🧩
+
+```erb
+<%= render "application/header" %>
+
+<h1>Products</h1>
+
+<p>Here are a few of our fine products:</p>
+<% @products.each do |product| %>
+  <%= render partial: "product", locals: { product: product } %>
+<% end %>
+
+<%= link_to "Register", register_path %>
+
+<%= render "application/footer" %>
+
+```
+
+---
+layout: two-cols-header
+---
+
+# Rails + ViewComponent
+
+https://viewcomponent.org
+
+::left::
+
+- Same pros and cons as Rails + ERB 💎
+- Better encapsulation of components 🧱
+- Easier to test partially 🧪
+
+Add:
+
+```rb
+gem "view_component"
+```
+
+Then you can generate a component:
+
+```rb
+bin/rails generate view_component:component Example title
+```
+
+::right::
+
+```rb
+class ExampleComponent < ViewComponent::Base
+  erb_template <<-ERB
+    <span title="<%= @title %>"><%= content %></span>
+  ERB
+
+  def initialize(title:)
+    @title = title
+  end
+end
+```
+
+```erb
+<%= render(ExampleComponent.new(title: "my title")) do %>
+  Hello, World!
+<% end %>
+```
+
+---
+layout: two-cols-header
+---
+
+# Rails + Turbo/Stimulus/Hotwire
+
+- No API required when using Turbo 🛠️
+- Modern, reactive UI with minimal JS when using Stimulus 💨
+- Easy to deploy 🏃‍➡️
+- Difficult to access to modern JS components 🧩
+
+::left::
+
+```html
+<div data-controller="hello">
+  <input data-hello-target="name" type="text">
+
+  <button data-action="click->hello#greet">
+    Greet
+  </button>
+
+  <span data-hello-target="output">
+  </span>
+</div>
+```
+
+::right::
+
+```js
+import { Controller } from "stimulus"
+
+export default class extends Controller {
+  static targets = [ "name", "output" ]
+
+  greet() {
+    this.outputTarget.textContent =
+      `Hello, ${this.nameTarget.value}!`
+  }
+}
+```
+---
+layout: two-cols-header
+---
+
+# Rails + API + UI Framework
+
+::left::
+
+- Clear separation of concerns 🧱
+- Modern UI with a framework like React, Vue, Svelte, etc. 🎨
+- Reusable API for other clients 📱
+- More complex deployment and build steps 🏗️
+- More dependencies to maintain 🧩
+- Need to maintain an API 🛠️
+- Client-side routing 🗺️
+- Server-side rendering is hard 🥲
+
+::right::
+
+![Rails + API + UI Framework](./assets/rails-api.svg)
+
+---
+layout: cover
+---
+
+# Rails + Inertia.js
+
 ---
 
 ## Was ist Inertia?
@@ -368,9 +536,9 @@ __ApprenticeCreate.tsx__
 ```ts{all|2|all}
 router.reload({
   only: ["groups"],
-  data: { 
+  data: {
     selected_year_context_id: yearContextId,
-    selected_occupation: occupation 
+    selected_occupation: occupation
   },
 });
 ```
@@ -502,10 +670,10 @@ type FormErrors = {
 };
 
 export function AdminForm() {
-  const { errors } = 
+  const { errors } =
     usePage<{ errors: FormErrors }>().props;
 }
-``` 
+```
 
 ---
 layout: two-cols-header
@@ -573,7 +741,7 @@ import { Deferred } from "@inertiajs/react";
 
 export default function Items({ items, params }: ItemsProps) {
   return (
-    <Deferred data="items" 
+    <Deferred data="items"
       fallback={<ItemsTable loading />}>
       <ItemsTable items={items}
        onDelete={deleteItem}/>
