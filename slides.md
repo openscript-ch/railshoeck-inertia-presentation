@@ -175,9 +175,21 @@ layout: two-cols-header
 ---
 
 # Rails + Inertia.js
-<!-- <logos-rails class="relative -top-12 bg-white" /> -->
 
 ::left::
+
+<div class="text-5xl text-center mt-10">?</div>
+
+::right::
+
+---
+layout: two-cols-header
+---
+
+# Rails + Inertia.js
+
+::left::
+
 
 - Modern UI with a framework like React, Vue, Svelte, etc. 🎨
 - No Reusable API 📱
@@ -186,7 +198,7 @@ layout: two-cols-header
 
 ::right::
 
-<img alt="Inertia.js" src="./assets/inertia-logo.png" class="mx-auto mt-10" />
+![badly generated illustration of rails glued to react](./assets/rails-glued-react.png)
 
 <!-- Wir hatten einige Diskussionen wie wir unser Projekt umsetzten wollten. Wir verwenden gerne neue und uns noch unbekannte Technologien. Jedoch für dieses Projekt wollten wir uns schon ein bekannteren Tech-Stack annehmen.
 Somit ergaben sich für uns einige Optionen wobei Inertia eigentlich noch nicht zur Auswahl Stand. Über ein Laravel + Vue Projekt, welches wir übernahmen, sind wir auf Inertia gestossen. -->
@@ -243,7 +255,6 @@ It does this by «glueing» two frameworks together and replaces the view layer
 <div class="flex justify-center text-5xl mt-5">
   <logos-rails v-click class="m-4 " />
   <logos-laravel v-click class="m-4 " />
-  <logos-nestjs v-click class="m-4 " />
   <logos-phoenix v-click class="m-4 " />
   <logos-django v-click class="m-4 " />
   <logos-spring v-click class="m-4 " />
@@ -278,10 +289,30 @@ In a nutshell:
 </v-click>
 
 ---
+
+# But that's just turbo with extra steps!?\*1!? 
+
+<v-click>
+
+*They do work in a similar way, however:*
+
+Inertia relies on a **client-side framework** for rendering and has good integrations
+
+</v-click>
+
+<img src="./assets/extra-steps.jpg" class="h-50 mx-auto mt-15 -rotate-2">
+
+---
 layout: cover
 ---
 
-# [Rails + Intertia in action](http://localhost:3000)
+# [Intertia in action](http://localhost:3000)
+
+with:
+
+- **Rails** as backend framework
+- **React** as frontend framework
+- **Mantine** as component framework 
 
 ---
 layout: two-cols-header
@@ -319,20 +350,15 @@ createInertiaApp({
 
 <span :class="$slidev.nav.clicks === 2 ? 'text-red-600' : ''">**Home**</span>**.tsx**
 
-```tsx {all|1,10-12|none|8-15|all}{at: +1}
+```tsx {all|1,5-7|3-10|none|all}{at: +1}
 import { Head, Link } from "@inertiajs/react";
-import type { ReactNode } from "react";
 
-const Home = ({ username }: { username: string }) => {
-  return <h1>Welcome {username}</h1>;
-};
-
-Home.layout = (page: ReactNode) => (
+const Home = ({ username }: { username: string }) => (
   <>
     <Head>
       <title>Home</title>
     </Head>
-    {page}
+    <h1>Welcome {username}</h1>;
   </>
 );
 
@@ -389,19 +415,20 @@ export default function Schools({ schools, filter, pagination }: SchoolsProps) {
 
 __routes.rb__
 
-```rb
+```rb{all|2-6|8-9|all}
 Rails.application.routes.draw do
-  inertia 'dashboard' => 'Dashboard'
-
-  inertia :settings
-
-  namespace :admin do
-    inertia 'dashboard' => 'Admin/Dashboard'
+  # Within resource definitions
+  resources :users do
+    get :activity, on: :member
+    get :statistics, on: :collection
   end
 
-  resources :users do
-    inertia :activity, on: :member
-    inertia :statistics, on: :collection
+  # Basic usage - maps 'dashboard' URL to 'Dashboard' component
+  inertia 'dashboard' => 'Dashboard'
+
+  # Within namespaces and scopes
+  namespace :admin do
+    inertia 'dashboard' => 'Admin/Dashboard'
   end
 end
 ```
@@ -438,7 +465,7 @@ const Home = ({ username }: { username: string }) => {
 <v-clicks>
 <div>
 
-**As any tag**
+**As button**
 ```tsx {all|8|all}{at: +4}
 import { Head, Link } from "@inertiajs/react";
 import type { ReactNode } from "react";
@@ -458,6 +485,8 @@ const Home = ({ username }: { username: string }) => {
 </div>
 </v-clicks>
 
+---
+hide: true
 ---
 
 ### Other options for links
@@ -479,7 +508,7 @@ import { router } from '@inertiajs/react';
 
 router.visit(url, options);
 ```
-or more specific
+or more specific:
 ```ts
 router.get(url, data, options);
 router.post(url, data, options);
@@ -521,10 +550,12 @@ router.post("/login",
       password: "password",
     },
     {
-      onSuccess: (page) => flashManager.push(State.SUCCESS, page.props.message),
+      onSuccess: (page) => console.log(page.props.message), // implement flash message in frontend
     },
 );
 ```
+---
+hide: true
 ---
 
 ## More fun stuff
@@ -544,6 +575,8 @@ router.post('/users', data, {
 
 this.cancelToken.cancel();
 ```
+---
+hide: true
 ---
 
 ## Other options for the router
@@ -592,6 +625,8 @@ export default function AdminCreate() {
 }
 ```
 ---
+hide: true
+---
 
 ## Generated routes
 
@@ -612,13 +647,13 @@ export const admins_path: ((
 layout: two-cols-header
 ---
 
-## Client-side partial loading
+## Feature ⭐ Client-side partial loading
 
 ::left::
 
 __ApprenticeCreate.tsx__
 
-```ts{all|2|all}
+```ts{none|all|2|all}
 router.reload({
   only: ["groups"],
   data: {
@@ -632,18 +667,21 @@ router.reload({
 
 __apprentices_controller.rb__
 
-```rb{all|3|all}{at: +1}
+```rb{none|all|3|4|all}{at: +1}
 render inertia: "users/apprentice/ApprenticeCreate", props: {
   ...
-  groups: GroupSerializer.render_as_hash(@groups || [])
+  groups: -> { GroupSerializer.render_as_hash(@groups || []) },
+  other_prop: Inertia.optional { "I wont be evaluated" }
   ...
 }
 ```
+
 ---
 
 ### Client-side partial loading
 
 __Exclude__
+
 ```ts
 router.reload({
   except: ["groups"]
@@ -662,40 +700,12 @@ router.reload({
   only: ["user.firstname", "user.lastname"],
 });
 ```
+
 ---
 layout: two-cols-header
 ---
 
-## Server-side partial loading
-
-::left::
-
-__reports_controller.rb__
-
-```rb{all|4|all}
-render inertia: "report/Reports", props: {
-  ...
-  groups: InertiaRails.optional do
-    GroupSerializer.render_as_hash(@groups)
-  end,
-  ...
-}
-```
-
-::right::
-
-__Reports.tsx__
-
-```ts{all|2|all}{at: +1}
-const openReportGenerator = () => {
-  router.reload({ only: ["groups"] });
-  openGenerator();
-};
-
-```
----
-
-## Server-side partial loading
+### Server-side partial loading
 
 __All options__
 
@@ -705,7 +715,7 @@ __All options__
 # ALWAYS evaluated
 users: User.all,
 
-# IMMER on standard visits
+# ALWAYS on standard visits
 # OPTIONAL on partial reloads
 # CONDITIONALLY evaluated
 users: -> { User.all },
@@ -724,13 +734,13 @@ users: InertiaRails.always { User.all },
 layout: two-cols-header
 ---
 
-## Props & validation errors
+## Recipe 👨‍🍳 server-side validations
 
 ::left::
 
 __application_controller.rb__
 
-```rb{all|6-7|all}
+```rb{none|all|6-7|all}
 def create
   ...
   if admin.save
@@ -746,7 +756,7 @@ end
 
 __AdminForm.tsx__
 
-```ts{all|1,3-6,9-10|all}{at: +1}
+```ts{none|all|1,3-6,9-10|all}{at: +1}
 import { usePage } from "@inertiajs/react";
 
 type FormErrors = {
@@ -764,13 +774,13 @@ export function AdminForm() {
 layout: two-cols-header
 ---
 
-## Shared data
+## Feature ⭐ Shared data
 
 ::left::
 
 __application_controller.rb__
 
-```rb{all|2-8|2-8|all}
+```rb{none|all|2-8|2-8|all}
 class ApplicationController < ActionController::Base
  inertia_share do
     {
@@ -786,17 +796,12 @@ end
 
 __admins_controller.rb__
 
-```rb{all|4|9-10|all}{at: +1}
+```rb{none|all|4|all}{at: +1}
 def create
   ...
   if admin.save
     flash[:notice] = "Admin successfully created"
     redirect_to admins_path
-
-    # oder
-
-    redirect_to admins_path,
-     flash: { notice: "Admin successfully created" }
   else
     redirect_to new_admin_path, inertia: { errors: admin.errors }
   end
@@ -806,12 +811,12 @@ end
 layout: two-cols-header
 ---
 
-## Deferred Props
+## Feature ⭐ Deferred Props
 
 ::left::
 
 __items_controller.rb__
-```rb{all|2|all}
+```rb{none|all|2|all}
 render inertia: "Items/Items", props: {
       items: InertiaRails.defer { @items },
       params: @params
@@ -821,7 +826,7 @@ render inertia: "Items/Items", props: {
 ::right::
 
 __Items.tsx__
-```tsx{all|1,5-9|all}{at: +1}
+```tsx{none|all|1,5-9|all}{at: +1}
 import { Deferred } from "@inertiajs/react";
 
 export default function Items({ items, params }: ItemsProps) {
@@ -849,11 +854,9 @@ export default function Items({ items, params }: ItemsProps) {
 ---
 ---
 
-## Deferred Props
+## Grouping defered props
 
-__Grouping for parallel requests__
-
-```rb{all|2-4|all}
+```rb{none|all|2|3-4|all}
 render inertia: "Items/Items", props: {
       items: InertiaRails.defer { @items },
       params: InertiaRails.defer('attributes') { @params },
@@ -864,13 +867,13 @@ render inertia: "Items/Items", props: {
 layout: two-cols-header
 ---
 
-## Merging props
+## Feature ⭐ Merging props
 
 ::left::
 
 __items_controller.rb__
 
-```rb{all|2-4,6}
+```rb{none|all|2-4,6}
 def index
   Item.offset(params["offset"] || 0)
       .limit(20)
@@ -885,7 +888,7 @@ end
 
 __Items.tsx__
 
-```tsx{all|3-5|all}{at: +1}
+```tsx{none|all|3-5|all}{at: +1}
 const loadMoreRecords = () => {
   setLoading(true);
   router.reload({
@@ -909,9 +912,7 @@ const loadMoreRecords = () => {
 
 ---
 
-## Merging props
-
-__Reset merge__
+## Reset merged props
 
 ```tsx{all|4-5|all}
 const onReset = () => {
@@ -925,7 +926,7 @@ const onReset = () => {
 ```
 ---
 
-## Prefetching
+## Feature ⭐ Prefetching
 
 __Navbar.tsx__
 
@@ -961,7 +962,15 @@ __More options__
 
 ---
 
-## Forms
+## Feature ⭐ Forms
+
+- Inertia supports forms, but we went with mantine's forms and used the router to post data back to rails
+
+---
+hide: true
+---
+
+## Feature ⭐ Forms
 
 ```tsx
 
@@ -1017,6 +1026,7 @@ layout: two-cols-header
 <v-clicks>
 
 - Some interactions are hard (e.g. modal dialogs)
+- Types for TS are not generated by the backend
 
 </v-clicks>
 
@@ -1025,6 +1035,8 @@ layout: two-cols-header
 layout: cover
 ---
 
-Conclusion:
+our conclusion:
 
-## perfect 5/7, will use again!
+## perfect 5/7, would use again!\*
+
+<small v-click>*) for small projects that dont need an api</small>
