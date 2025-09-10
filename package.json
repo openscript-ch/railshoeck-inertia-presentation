@@ -4,16 +4,16 @@
   "private": true,
   "scripts": {
     "build": "slidev build --base $BASE_PATH",
-    "dev": "slidev --remote 0.0.0.0",
+    "dev": "slidev --remote",
     "export": "slidev export"
   },
   "dependencies": {
     "@iconify-json/logos": "^1.2.9",
-    "@openscript-ch/slidev-theme": "^0.10.4",
+    "@openscript-ch/slidev-theme": "^0.10.5",
     "@slidev/cli": "^52.1.0",
     "vue": "^3.5.18"
   },
-  "packageManager": "pnpm@10.5.1",
+  "packageManager": "pnpm@10.15.1",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",

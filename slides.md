@@ -186,27 +186,27 @@ layout: two-cols-header
 
 ::right::
 
-<img alt="Inertia.js" src="./assets/inertia-logo.png" class="mx-auto mt-10" /> 
+<img alt="Inertia.js" src="./assets/inertia-logo.png" class="mx-auto mt-10" />
 
 <!-- Wir hatten einige Diskussionen wie wir unser Projekt umsetzten wollten. Wir verwenden gerne neue und uns noch unbekannte Technologien. Jedoch für dieses Projekt wollten wir uns schon ein bekannteren Tech-Stack annehmen.
 Somit ergaben sich für uns einige Optionen wobei Inertia eigentlich noch nicht zur Auswahl Stand. Über ein Laravel + Vue Projekt, welches wir übernahmen, sind wir auf Inertia gestossen. -->
 
 ---
-layout: cover 
---- 
+layout: cover
+---
 
 # So what is this «Inertia.js»?
 
 ---
 
-<img alt="The modern monolith" src="./assets/inertia-claims-1.png" class="absolute top-6 w-full left-0 block" /> 
-<img v-click="1" alt="build spas without api" src="./assets/inertia-claims-2.png" class="absolute top-6 w-full left-0 block" /> 
-<img v-click="2" alt="laravel example" src="./assets/inertia-claims-3.png" class="absolute top-6 w-full left-0 block" /> 
+<img alt="The modern monolith" src="./assets/inertia-claims-1.png" class="absolute top-6 w-full left-0 block" />
+<img v-click="1" alt="build spas without api" src="./assets/inertia-claims-2.png" class="absolute top-6 w-full left-0 block" />
+<img v-click="2" alt="laravel example" src="./assets/inertia-claims-3.png" class="absolute top-6 w-full left-0 block" />
 <span v-click="3" class="text-[10rem] absolute top-20 right-30" >🥲</span>
 
 
-<!-- 
-Inertia claims: 
+<!--
+Inertia claims:
 
 1. be the «modern monolith» (it's not)
 2. to «build SPAs without building an API»
@@ -227,7 +227,7 @@ It does this by «glueing» two frameworks together and replaces the view layer
   - **but without the view layer**
 - *Client-side*: use prefered client-side frameworks with its component library, ...
   - **but without talking to a http-api**
-- Glues these two sides together to build the «modern monolith» 
+- Glues these two sides together to build the «modern monolith»
 - Created 2019 by Jonathan Reinink for Laravel
 
 </v-clicks>
@@ -278,8 +278,8 @@ In a nutshell:
 </v-click>
 
 ---
-layout: cover 
---- 
+layout: cover
+---
 
 # [Rails + Intertia in action](http://localhost:3000)
 
@@ -535,7 +535,7 @@ router.push(options);
 router.replace(options)
 ```
 
-__Abort request__ 
+__Abort request__
 
 ```ts
 router.post('/users', data, {
@@ -1025,6 +1025,6 @@ layout: two-cols-header
 layout: cover
 ---
 
-Conclusion: 
+Conclusion:
 
 ## perfect 5/7, will use again!
